@@ -40,6 +40,9 @@ Press Any key to continue...
 ### Notation
 - The drives uses lowest value from classic WEI scores, while the dx score is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
 
+### Development
+- Add a psd1 for "Final Result = 8.9 (+0.3)", remembering previous score. 
+
 ### Warnings
 - Copying Windows files to other editions of Windows, may have unexpected results and be unsafe. Ensure not to over-write/corrupt important files in "..\system32` folder.
 
