@@ -34,7 +34,7 @@ Press Any key to continue...
 ```
 
 ### Requirements
-- Version of Server with the file "SystemDrive\Windows\System32\WinSat.exe", or alternatively if you a have Server without WinSat (eg, Server 2012), then find a relating version of Windows Desktop containing WinSat (ie, Windows 8), and copy it over. Obviously link as its part of a Micro$oft OS.
+- Version of Server with the file "SystemDrive\Windows\System32\WinSat.exe", or alternatively if you a have Server without WinSat (eg, Server 2012), then find a relating version of Windows Desktop containing WinSat (ie, Windows 8), and copy it over.
 - Powershell - Qwen3-235B-A22B assessed the `benchmark.ps1` script, and said it was PowerShell 3.0+ compatible.  
 
 ### Notation
