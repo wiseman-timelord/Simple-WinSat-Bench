@@ -38,7 +38,9 @@ Press Any key to continue...
 - Powershell - Qwen3-235B-A22B assessed the `benchmark.ps1` script, and said it was PowerShell 3.0+ compatible.  
 
 ### Notation
-- The drives uses lowest value from classic WEI scores, while the dx score is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
+- The "Drives Scores" uses lowest value from classic WEI scores.
+- The "Graphics Scores" is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
+- The, "Drives Scores" and "Graphics Scores", middle number is "Final Result".
 
 ### Development
 - Add a psd1 for "Final Result = 8.9 (+0.3)", remembering previous score. 
