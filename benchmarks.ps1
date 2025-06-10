@@ -1,5 +1,5 @@
 # benchmarks.ps1
-# Enhanced version for Windows Server 2012 (non-R2)
+# Compatibility for Windows Server 2012 (non-R2)
 # Output matches exact 79-character width formatting
 
 function Get-CenteredText {
@@ -50,9 +50,8 @@ Ensure the file has proper permissions to execute.
 # Initial Benchmarking Banner
 Clear-Host
 $line = "=" * 79
-$header = "Simple-Winsat-Bench : Benchmarking"
 Write-Host $line
-Write-Host (Get-CenteredText $header)
+Write-Host "    Simple-Winsat-Bench : Benchmarking"
 Write-Host $line
 Write-Host ""
 
@@ -179,6 +178,43 @@ function Calculate-Average {
     return ($Values | Measure-Object -Sum).Sum / $Values.Count
 }
 
+function Calculate-D3DScore {
+    param ([string]$RuntimeString)
+    
+    if (-not $RuntimeString -or $RuntimeString -eq "N/A") {
+        return 8.0  # Default base score if no runtime available
+    }
+    
+    # Parse runtime string (format: "M:SS.mmm" or "MM:SS.mmm")
+    if ($RuntimeString -match "(\d+):(\d+)\.(\d+)") {
+        $minutes = [int]$matches[1]
+        $seconds = [int]$matches[2]
+        $milliseconds = [int]$matches[3]
+        
+        # Convert to total seconds
+        $totalSeconds = ($minutes * 60) + $seconds + ($milliseconds / 1000)
+        
+        # Base score is 8.0 for 2:00 (120 seconds)
+        $baseTimeSeconds = 120.0
+        $baseScore = 8.0
+        
+        # Calculate score adjustment: +0.5 points for every 15 seconds faster than base
+        # -0.5 points for every 15 seconds slower than base
+        $timeDifference = $baseTimeSeconds - $totalSeconds
+        $scoreAdjustment = ($timeDifference / 15.0) * 0.5
+        
+        $finalScore = $baseScore + $scoreAdjustment
+        
+        # Ensure score stays within reasonable bounds (minimum 1.0, maximum 15.0)
+        $finalScore = [Math]::Max(1.0, [Math]::Min(15.0, $finalScore))
+        
+        return $finalScore
+    }
+    
+    # If parsing fails, return base score
+    return 8.0
+}
+
 # Run GPU Benchmark (d3d)
 $d3dOutput = Run-WinSATTest -TestName "d3d"
 
@@ -191,9 +227,8 @@ Start-Sleep -Seconds 2
 
 # Clear screen and display final results
 Clear-Host
-$header = "Simple-Winsat-Bench : Results"
 Write-Host $line
-Write-Host (Get-CenteredText $header)
+Write-Host "    Simple-Winsat-Bench : Results"
 Write-Host $line
 Write-Host ""
 Write-Host ""
@@ -207,16 +242,24 @@ $aveAlpha = Calculate-Average -Values $d3dMetrics.Alpha
 $aveTexture = Calculate-Average -Values $d3dMetrics.Texture
 $aveGeometry = Calculate-Average -Values $d3dMetrics.Geometry
 
-# Find lowest disk score
+# Calculate scores
+$d3dScore = Calculate-D3DScore -RuntimeString $d3dMetrics.Runtime
 $lowestDiskScore = if ($diskMetrics.Count -gt 0) {
     ($diskMetrics.Score | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
 } else { 0.0 }
+
+# Calculate final result as average of D3D score and disk score
+$finalResult = if ($lowestDiskScore -gt 0) {
+    ($d3dScore + $lowestDiskScore) / 2.0
+} else {
+    $d3dScore  # Use only D3D score if disk score unavailable
+}
 
 # Display metrics
 Write-Host ("Ave. Direct3D Alpha Blend Performance             {0:F2} F/s" -f $aveAlpha)
 Write-Host ("Ave. Direct3D Texture Load Performance           {0:F2} F/s" -f $aveTexture)
 Write-Host ("Ave. Direct3D Geometry Performance               {0:F2} F/s" -f $aveGeometry)
-Write-Host ("Total Run Time = {0}" -f $(if ($d3dMetrics.Runtime) { $d3dMetrics.Runtime } else { "N/A" }))
+Write-Host ("Graphics Score = {0:F1} (timer)" -f $d3dScore)
 Write-Host ""
 Write-Host ""
 
@@ -235,10 +278,10 @@ if ($diskMetrics.Count -ge 3) {
     Write-Host "Disk  Sequential 64.0 Write                  0.00 MB/s"
 }
 
-Write-Host ("Drives Score = {0:F1} (Lowest)" -f $lowestDiskScore)
+Write-Host ("Drives Score = {0:F1} (classic)" -f $lowestDiskScore)
 Write-Host ""
 Write-Host ""
-Write-Host ("Final Result = {0:F1}" -f $lowestDiskScore)
+Write-Host ("Final Result = {0:F1}" -f $finalResult)
 Write-Host ""
 Write-Host ""
 

@@ -1,12 +1,10 @@
 :: Enhanced Simple-WinSat-Bench Launcher
-:: Version 2.0 - Improved error handling and compatibility
 @echo off
 setlocal enabledelayedexpansion
 
 :: Global Variables
 set "ScriptDirectory=%~dp0"
 set "ScriptDirectory=%ScriptDirectory:~0,-1%"
-set "Version=2.0"
 
 :: Initialize error handling
 set "ErrorCount=0"
@@ -78,7 +76,7 @@ exit /b 1
 :displayBanner
 cls
 echo ===============================================================================
-echo     Simple-WinSat-Bench v%Version% : Batch Launcher
+echo     Simple-WinSat-Bench : Batch Launcher
 echo ===============================================================================
 echo.
 timeout /t 1 /nobreak >nul 2>&1
@@ -245,7 +243,6 @@ goto :main_menu
 call :displayBanner
 echo System Information:
 echo.
-echo Tool Version: %Version%
 echo PowerShell Engine: %PSCommand%
 echo Script Directory: %ScriptDirectory%
 echo Current User: %USERNAME%
