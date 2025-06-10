@@ -33,9 +33,13 @@ Press Any key to continue...
 
 ```
 
-### Notation
-- The drives uses lowest value from classic WEI scores, while the dx score is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
-
 ### Requirements
 - Version of Server without WinSat (eg, Server 2012) AND relating version of Windows Desktop containing WinSat (ie, Windows 8). You will need WinSat.exe, obviously I cant provide it in the package or link it, because its made by M$.
 - Powershell - Qwen3-235B-A22B assessed the `benchmark.ps1` script, and said it was PowerShell 3.0+ compatible.  
+
+### Notation
+- The drives uses lowest value from classic WEI scores, while the dx score is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
+
+### Warnings
+- Copying Windows files to other editions of Windows, may have unexpected results and be unsafe. Ensure not to over-write/corrupt important files in "..\system32` folder.
+
