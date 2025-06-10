@@ -1,8 +1,8 @@
 # Simple-WinSat-Bench
-Its a simple WinSat benchmarker for Server editions of Windows.
+
 
 ### Description
-I was trying to get windows experience index working through "ExperienceIndexOK" a third party experience index program, however, it didnt work, and WinSat was missing from System32, so a solution was provided, to copy over WinSat from equivalent relating desktop edition of windows, which I did, but then only, Drive and Gpu, tests worked, hence, with some assessment of presentation, Simple-WinSat-Bench was created. While the stats are limited, the score is in my optinion more functional than windows experience index, because we are using average of the 2 scores, not just lowest value. The downfall is obviously no cpu tests.
+Its a simple WinSat benchmarker for Server editions of Windows. Was trying "ExperienceIndexOK" (a third party experience index), however, it didnt work due to WinSat missing from System32, so a solution was, to copy over WinSat from equivalent desktop edition of windows, but then only, Drive and Gpu, tests worked, hence, the limited stats just needed to be presented somehow. While the stats are limited, the score is possibly more functional, because we are using average of the 2 scores, not just lowest value (like in Experience Index). The main downfall is obviously no cpu tests.
 
 ### Preview
 Here is what to expect...
