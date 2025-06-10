@@ -38,4 +38,4 @@ Press Any key to continue...
 
 ### Requirements
 - Version of Server without WinSat (eg, Server 2012) AND relating version of Windows Desktop containing WinSat (ie, Windows 8). You will need WinSat.exe, obviously I cant provide it in the package or link it, because its made by M$.
-- Powershell Core - TBA.  
+- Powershell - Qwen3-235B-A22B assessed the `benchmark.ps1` script, and said it was PowerShell 3.0+ compatible.  
