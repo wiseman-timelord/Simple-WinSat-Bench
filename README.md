@@ -37,5 +37,5 @@ Press Any key to continue...
 - The drives uses lowest value from classic WEI scores, while the dx score is based on a timer, with 2:00 as base of 8, 1:30 would be 9, etc.
 
 ### Requirements
-- Version of Server without WinSat (eg, Server 2012) AND relating version of Windows Desktop containing WinSat (ie, Windows 8).
+- Version of Server without WinSat (eg, Server 2012) AND relating version of Windows Desktop containing WinSat (ie, Windows 8). You will need WinSat.exe, obviously I cant provide it in the package or link it, because its made by M$.
 - Powershell Core - TBA.  
